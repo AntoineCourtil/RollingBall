@@ -5,6 +5,10 @@ import com.badlogic.gdx.Game;
 import fr.ul.rollingball.views.GameScreen;
 import fr.ul.rollingball.views.SplashScreen;
 
+/**
+ * Created by Antoine Courtil on 24/01/17.
+ */
+
 public class RollingBall extends Game {
     SplashScreen splashScreen;
     GameScreen gameScreen;

@@ -4,19 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Created by courtil1u on 24/01/17.
+ * Created by Antoine Courtil on 24/01/17.
  */
 
 public class TextureFactory {
 
     private static TextureFactory instance;
 
-    public static Texture intro;
-    public static Texture decor;
+    private static Texture intro;
+    private static Texture decor;
+    public static Texture boule2D;
 
     private TextureFactory(){
         this.intro = new Texture(Gdx.files.internal("images/Intro.jpg"));
         this.decor = new Texture(Gdx.files.internal("images/Deco.jpg"));
+        this.boule2D = new Texture(Gdx.files.internal("images/badlogic.jpg"));
     }
 
     public static TextureFactory getInstance(){
@@ -32,6 +34,10 @@ public class TextureFactory {
 
     public Texture getDecor(){
         return this.decor;
+    }
+
+    public Texture getBoule2D(){
+        return this.boule2D;
     }
 
 }

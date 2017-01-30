@@ -13,7 +13,7 @@ import fr.ul.rollingball.RollingBall;
 import fr.ul.rollingball.dataFactories.TextureFactory;
 
 /**
- * Created by courtil1u on 24/01/17.
+ * Created by Antoine Courtil on 24/01/17.
  */
 
 public class SplashScreen extends ScreenAdapter {
