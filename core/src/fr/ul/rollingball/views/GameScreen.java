@@ -29,7 +29,7 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(RollingBall rb){
         this.rollingBall = rb;
         this.spriteBatch = new SpriteBatch();
-        this.world = new World(this);
+        this.world = new World(this, 0 );
 
         this.camera = new OrthographicCamera(this.rollingBall.getWidth(), this.rollingBall.getHeight());
         Viewport vp = new FitViewport(this.rollingBall.getWidth(), this.rollingBall.getHeight());
@@ -50,13 +50,19 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void update(){
-        float accelerometerX = Gdx.input.getAccelerometerX()/20;
-        float accelerometerY = Gdx.input.getAccelerometerY()/20;
+        float accelerometerX = Gdx.input.getAccelerometerY();
+        float accelerometerY = Gdx.input.getAccelerometerX();
+
+        if (accelerometerX < 1 && accelerometerX > -1) { accelerometerX = 0; }
+        else{ accelerometerX = accelerometerX/40; }
+
+        if (accelerometerY < 1 && accelerometerY > -1) { accelerometerY = 0; }
+        else{ accelerometerY = accelerometerY/40 * -1; }
 
         Vector2 acceleration = new Vector2(accelerometerX, accelerometerY);
 
         this.world.getBoule().acceleration(acceleration);
-
+        this.world.getBoule().update();
 
     }
 

@@ -2,6 +2,7 @@ package fr.ul.rollingball;
 
 import com.badlogic.gdx.Game;
 
+import fr.ul.rollingball.dataFactories.SoundFactory;
 import fr.ul.rollingball.views.GameScreen;
 import fr.ul.rollingball.views.SplashScreen;
 
@@ -25,6 +26,9 @@ public class RollingBall extends Game {
 
     public void displayGame(){
         this.setScreen(this.gameScreen);
+
+        SoundFactory.getInstance();
+        SoundFactory.getInstance().playVictoire(1f);
     }
 
     @Override
