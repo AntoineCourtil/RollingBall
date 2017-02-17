@@ -1,3 +1,6 @@
+.gitignore
+core/build.gradle
+
 ## Java
 
 *.class

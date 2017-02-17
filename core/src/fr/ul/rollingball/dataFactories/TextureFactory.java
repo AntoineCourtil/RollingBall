@@ -5,6 +5,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,13 +27,14 @@ public class TextureFactory {
     private Texture decor;
     private Texture bravo;
     private Texture boule2D;
-    private Texture boule3D;
     private Texture pastilleNormale2D;
-    private Texture pastilleNormale3D;
     private Texture pastilleTaille2D;
-    private Texture pastilleTaille3D;
     private Texture pastilleTemps2D;
-    private Texture pastilleTemps3D;
+
+    private Array<Sprite> boule3D;
+    private Array<Sprite> pastilleNormale3D;
+    private Array<Sprite> pastilleTaille3D;
+    private Array<Sprite> pastilleTemps3D;
 
 
     private TextureFactory() {
@@ -38,13 +42,16 @@ public class TextureFactory {
         decor = new Texture(Gdx.files.internal("images/Deco.jpg"));
         bravo = new Texture(Gdx.files.internal("images/Bravo.bmp"));
         boule2D = new Texture(Gdx.files.internal("images/badlogic.jpg"));
-        boule3D = new Texture(Gdx.files.internal("images/boule.bmp"));
         pastilleNormale2D = new Texture(Gdx.files.internal("images/pastilleNormale.bmp"));
-        pastilleNormale3D = new Texture(Gdx.files.internal("images/pastilleNormale.png"));
         pastilleTaille2D = new Texture(Gdx.files.internal("images/pastilleTaille.bmp"));
-        pastilleTaille3D = new Texture(Gdx.files.internal("images/pastilleTaille.png"));
         pastilleTemps2D = new Texture(Gdx.files.internal("images/pastilleTemps.bmp"));
-        pastilleTemps3D = new Texture(Gdx.files.internal("images/pastilleTemps.png"));
+
+
+        boule3D = new TextureAtlas(Gdx.files.internal("images/boule.pack")).createSprites();
+        pastilleNormale3D = new TextureAtlas(Gdx.files.internal("images/pastilleNormale.pack")).createSprites();
+        pastilleTaille3D = new TextureAtlas(Gdx.files.internal("images/pastilleTaille.pack")).createSprites();
+        pastilleTemps3D = new TextureAtlas(Gdx.files.internal("images/pastilleTemps.pack")).createSprites();
+
 
         listLaby = new ArrayList<String>();
         FileHandle[] files = Gdx.files.internal("images/").list();
@@ -80,19 +87,19 @@ public class TextureFactory {
 
     public Texture getBravo() { return bravo; }
 
-    public Texture getBoule3D() { return boule3D; }
+    public Sprite getBoule3D(int index) { return boule3D.get(index); }
 
     public Texture getPastilleNormale2D() { return pastilleNormale2D; }
 
-    public Texture getPastilleNormale3D() { return pastilleNormale3D; }
+    public Sprite getPastilleNormale3D(int index) { return pastilleNormale3D.get(index); }
 
     public Texture getPastilleTaille2D() { return pastilleTaille2D; }
 
-    public Texture getPastilleTaille3D() { return pastilleTaille3D; }
+    public Sprite getPastilleTaille3D(int index) { return pastilleTaille3D.get(index); }
 
     public Texture getPastilleTemps2D() { return pastilleTemps2D; }
 
-    public Texture getPastilleTemps3D() { return pastilleTemps3D; }
+    public Sprite getPastilleTemps3D(int index) { return pastilleTemps3D.get(index); }
 
     public int getNbLaby(){ return listLaby.size(); }
 
