@@ -23,7 +23,7 @@ public class PillTemps extends Pill {
 
     @Override
     public void effect() {
-
+        this.getWorld().mangePillTemps();
     }
 
     @Override

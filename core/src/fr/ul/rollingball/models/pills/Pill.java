@@ -12,6 +12,7 @@ import fr.ul.rollingball.models.World;
 public abstract class Pill extends GameElement {
 
     private static float rayon = 12;
+    private static float rayonBase = 12;
 
 
     public Pill(World world, Vector2 position) {
@@ -20,6 +21,14 @@ public abstract class Pill extends GameElement {
 
     public static float getRayon() {
         return rayon;
+    }
+
+    public static void setRayon(float r) {
+        rayon = r;
+    }
+
+    public static float getRayonBase() {
+        return rayonBase;
     }
 
     public abstract void effect();

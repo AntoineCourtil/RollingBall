@@ -17,6 +17,10 @@ public abstract class GameElement {
         this.position = position;
     }
 
+    public World getWorld() {
+        return this.world;
+    }
+
     public Vector2 getPosition() {
         return this.position;
     }

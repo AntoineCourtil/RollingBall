@@ -29,7 +29,15 @@ public class Boule extends MovableElement {
         this.rayonCourant = rayonCourant;
     }
 
-    public void draw(SpriteBatch spriteBatch){
+    public void changeTaille() {
+        if (this.rayonCourant > rayon) {
+            this.rayonCourant = rayon;
+        } else {
+            this.rayonCourant = rayon * 2;
+        }
+    }
+
+    public void draw(SpriteBatch spriteBatch) {
         Texture boule2D = TextureFactory.getInstance().getBoule2D();
         float x = this.getPosition().x;
         float y = this.getPosition().y;

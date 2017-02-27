@@ -73,7 +73,7 @@ public class World {
 
                 if (pixel == 128 || pixel == 200 || pixel == 225) {
 
-                    Vector2 pos = new Vector2(y-5, height - x - 12);
+                    Vector2 pos = new Vector2(y - 5, height - x - 12);
 
                     switch (pixel) {
 
@@ -98,7 +98,7 @@ public class World {
         }
     }
 
-    private void deletePill(Vector2 pos, ByteBuffer buf) {
+    public void deletePill(Vector2 pos, ByteBuffer buf) {
         int width = this.pixmap.getWidth();
         int posX = (int) pos.x - 5;
         int posY = (int) pos.y - 5;
@@ -109,7 +109,8 @@ public class World {
         }
     }
 
-    private void eatPills() {
+    public void eatPills() {
+
         for (int i = 0; i < this.pills.size(); i++) {
             Pill pill = this.pills.get(i);
             Vector2 posBoule = this.boule.getPosition();
@@ -120,5 +121,17 @@ public class World {
                 this.pills.remove(i);
             }
         }
+    }
+
+    public void mangePillNormal(){
+        this.gameScreen.mangePillNormal();
+    }
+
+    public void mangePillTemps(){
+        this.gameScreen.mangePillTemps();
+    }
+
+    public void mangePillTaille(){
+        this.boule.changeTaille();
     }
 }
