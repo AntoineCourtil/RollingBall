@@ -31,13 +31,13 @@ public class GameState {
         this.etat = State.Running;
     }
 
-    public void mangePillNormal(){
-        this.score++;
+    public void mangePillNormal() {
+        this.score += 10;
         this.nbPillNormale++;
     }
 
-    public void mangePillTemps(){
-        this.tempsRestant+=5;
+    public void mangePillTemps() {
+        this.tempsRestant += 5;
     }
 
     public boolean isRunning() {

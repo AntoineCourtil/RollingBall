@@ -118,6 +118,7 @@ public class World {
             float distance = Vector2.dst(posBoule.x, posBoule.y, posPill.x, posPill.y);
             if (distance < this.boule.getRayonCourant() + pill.getRayon()) {
                 pill.effect();
+                //TODO SON EFFECTS
                 this.pills.remove(i);
             }
         }

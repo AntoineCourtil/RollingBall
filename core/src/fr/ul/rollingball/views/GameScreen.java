@@ -3,9 +3,12 @@ package fr.ul.rollingball.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -27,6 +30,7 @@ public class GameScreen extends ScreenAdapter {
     private Camera camera;
     private World world;
     private GameState gameState;
+    private BitmapFont police;
 
     public GameScreen(RollingBall rb) {
         this.rollingBall = rb;
@@ -34,11 +38,24 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(this, 0);
         this.gameState = new GameState();
 
+
         this.camera = new OrthographicCamera(this.rollingBall.getWidth(), this.rollingBall.getHeight());
         Viewport vp = new FitViewport(this.rollingBall.getWidth(), this.rollingBall.getHeight());
         this.camera.position.set(new Vector2(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f), 0f);
         this.camera.update();
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
+
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Comic_Sans_MS_Bold.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        parameter.size = 40;
+        parameter.color = new Color(1, 1, 0, 0.75f);
+        parameter.borderColor = new Color(0, 0, 0, 0.75f);
+        parameter.borderWidth = 3;
+
+        this.police = generator.generateFont(parameter);
+        generator.dispose();
     }
 
     public void render(float delta) {
@@ -49,6 +66,8 @@ public class GameScreen extends ScreenAdapter {
         this.spriteBatch.begin();
         this.spriteBatch.draw(decor, 0, 0);
         this.world.draw(this.spriteBatch);
+        this.police.draw(this.spriteBatch, "Score : "+this.gameState.getScore(), this.rollingBall.getWidth()-250, this.rollingBall.getHeight()-10);
+        this.police.draw(this.spriteBatch, ""+this.gameState.getTempsRestant(), (this.rollingBall.getWidth()/2)-100, this.rollingBall.getHeight()-10);
         this.spriteBatch.end();
     }
 
@@ -77,11 +96,11 @@ public class GameScreen extends ScreenAdapter {
 
     }
 
-    public void mangePillNormal(){
+    public void mangePillNormal() {
         this.gameState.mangePillNormal();
     }
 
-    public void mangePillTemps(){
+    public void mangePillTemps() {
         this.gameState.mangePillTemps();
     }
 
