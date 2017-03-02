@@ -23,11 +23,11 @@ public abstract class MovableElement extends GameElement {
         this.vitesse = vitesse;
     }
 
-    public void acceleration(Vector2 acceleration){
+    public void acceleration(Vector2 acceleration) {
         this.vitesse.add(acceleration);
     }
 
-    public void update(){
+    public void update() {
         this.setPosition(this.getPosition().add(this.vitesse));
     }
 }

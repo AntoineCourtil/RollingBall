@@ -20,7 +20,7 @@ public class SoundFactory {
     private static Sound ptemps;
     private static Sound victoire;
 
-    private SoundFactory(){
+    private SoundFactory() {
         alerte = Gdx.audio.newSound(Gdx.files.internal("sounds/alerte.mp3"));
         collision = Gdx.audio.newSound(Gdx.files.internal("sounds/collision.wav"));
         pastille = Gdx.audio.newSound(Gdx.files.internal("sounds/pastille.wav"));
@@ -30,24 +30,38 @@ public class SoundFactory {
         victoire = Gdx.audio.newSound(Gdx.files.internal("sounds/victoire.mp3"));
     }
 
-    public static SoundFactory getInstance(){
+    public static SoundFactory getInstance() {
         if (instance == null) {
             instance = new SoundFactory();
         }
         return instance;
     }
 
-    public void playAlerte(float volume){ alerte.play(volume); }
+    public void playAlerte(float volume) {
+        alerte.play(volume);
+    }
 
-    public void playCollision(float volume){ collision.play(volume); }
+    public void playCollision(float volume) {
+        collision.play(volume);
+    }
 
-    public void playPastille(float volume){ pastille.play(volume); }
+    public void playPastille(float volume) {
+        pastille.play(volume);
+    }
 
-    public void playPerte(float volume){ perte.play(volume); }
+    public void playPerte(float volume) {
+        perte.play(volume);
+    }
 
-    public void playPtaille(float volume){ ptaille.play(volume); }
+    public void playPtaille(float volume) {
+        ptaille.play(volume);
+    }
 
-    public void playPtemps(float volume){ ptemps.play(volume); }
+    public void playPtemps(float volume) {
+        ptemps.play(volume);
+    }
 
-    public void playVictoire(float volume){ victoire.play(volume); }
+    public void playVictoire(float volume) {
+        victoire.play(volume);
+    }
 }

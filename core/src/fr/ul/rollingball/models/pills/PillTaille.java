@@ -29,11 +29,16 @@ public class PillTaille extends Pill {
     @Override
     public void draw(SpriteBatch spriteBatch) {
 
+        this.noSprite++;
+        if (this.noSprite >= 60) {
+            this.noSprite = 0;
+        }
+
         float x = this.getPosition().x;
         float y = this.getPosition().y;
 
         //Texture texture = TextureFactory.getInstance().getPastilleTaille2D();
-        Sprite s = TextureFactory.getInstance().getPastilleTaille3D(this.noSprite);
+        Sprite s = TextureFactory.getInstance().getPastilleTaille3D(this.noSprite / 10);
         spriteBatch.draw(s, x, y, this.getRayon(), this.getRayon());
     }
 }

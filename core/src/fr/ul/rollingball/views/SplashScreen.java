@@ -29,7 +29,7 @@ public class SplashScreen extends ScreenAdapter {
 
         this.camera = new OrthographicCamera(this.rollingBall.getWidth(), this.rollingBall.getHeight());
         Viewport vp = new FitViewport(this.rollingBall.getWidth(), this.rollingBall.getHeight());
-        this.camera.position.set(new Vector2(this.camera.viewportWidth/2f, this.camera.viewportHeight/2f), 0f);
+        this.camera.position.set(new Vector2(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f), 0f);
         this.camera.update();
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
     }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+import fr.ul.rollingball.dataFactories.SoundFactory;
 import fr.ul.rollingball.dataFactories.TextureFactory;
 import fr.ul.rollingball.models.pills.Pill;
 import fr.ul.rollingball.models.pills.PillNormal;
@@ -29,12 +30,17 @@ public class World {
 
     public World(GameScreen gameScreen, int laby) {
         this.gameScreen = gameScreen;
-        this.labyCourant = laby;
+
+        if (laby < TextureFactory.getInstance().getNbLaby()) {
+            this.labyCourant = laby;
+        } else {
+            this.labyCourant = 0;
+        }
 
         Vector2 position = new Vector2(this.gameScreen.getRollingBall().getWidth() / 2, this.gameScreen.getRollingBall().getHeight() / 2);
         this.boule = new Boule(this, position);
 
-        this.pixmap = TextureFactory.getInstance().getPixmapLaby(laby);
+        this.pixmap = TextureFactory.getInstance().getPixmapLaby(this.labyCourant);
 
         this.pills = new ArrayList<>();
         this.extractPills();
@@ -53,6 +59,10 @@ public class World {
         for (Pill p : this.pills) {
             p.draw(spriteBatch);
         }
+    }
+
+    public int getLabyCourant() {
+        return labyCourant;
     }
 
     public Boule getBoule() {
@@ -118,21 +128,31 @@ public class World {
             float distance = Vector2.dst(posBoule.x, posBoule.y, posPill.x, posPill.y);
             if (distance < this.boule.getRayonCourant() + pill.getRayon()) {
                 pill.effect();
-                //TODO SON EFFECTS
                 this.pills.remove(i);
             }
         }
     }
 
-    public void mangePillNormal(){
+    public void mangePillNormal() {
         this.gameScreen.mangePillNormal();
+        SoundFactory.getInstance().playPastille(1);
     }
 
-    public void mangePillTemps(){
+    public void mangePillTemps() {
         this.gameScreen.mangePillTemps();
+        SoundFactory.getInstance().playPtemps(1);
     }
 
-    public void mangePillTaille(){
+    public void mangePillTaille() {
         this.boule.changeTaille();
+        SoundFactory.getInstance().playPtaille(1);
+    }
+
+    public int getWidth() {
+        return this.gameScreen.getRollingBall().getWidth();
+    }
+
+    public int getHeight() {
+        return this.gameScreen.getRollingBall().getHeight();
     }
 }

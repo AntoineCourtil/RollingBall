@@ -16,7 +16,7 @@ public class GameState {
         Loss
     }
 
-    public static float temps = 300;
+    public static float temps = 30;
     private State etat;
 
 
@@ -34,6 +34,24 @@ public class GameState {
     public void mangePillNormal() {
         this.score += 10;
         this.nbPillNormale++;
+    }
+
+    public void resetGameState() {
+        this.tempsRestant = temps + this.nbPillNormale;
+        this.nbPillNormale = 0;
+        this.etat = State.Running;
+    }
+
+    public void decreaseTemps(float time) {
+        this.tempsRestant -= time;
+    }
+
+    public void setVictory() {
+        this.etat = State.Victory;
+    }
+
+    public void setLoss() {
+        this.etat = State.Loss;
     }
 
     public void mangePillTemps() {
@@ -60,8 +78,8 @@ public class GameState {
         this.score = score;
     }
 
-    public float getTempsRestant() {
-        return this.tempsRestant;
+    public int getTempsRestant() {
+        return (int) this.tempsRestant;
     }
 
     public void setTempsRestant(float tempsRestant) {
