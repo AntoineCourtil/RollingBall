@@ -40,6 +40,7 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(this, 0);
         this.gameState = new GameState();
         this.chrono = 0;
+        this.police = TextureFactory.getInstance().getPolice();
 
 
         this.camera = new OrthographicCamera(this.rollingBall.getWidth(), this.rollingBall.getHeight());
@@ -47,18 +48,6 @@ public class GameScreen extends ScreenAdapter {
         this.camera.position.set(new Vector2(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f), 0f);
         this.camera.update();
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
-
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Comic_Sans_MS_Bold.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-        parameter.size = 40;
-        parameter.color = new Color(1, 1, 0, 0.75f);
-        parameter.borderColor = new Color(0, 0, 0, 0.75f);
-        parameter.borderWidth = 3;
-
-        this.police = generator.generateFont(parameter);
-        generator.dispose();
     }
 
     public void render(float delta) {
@@ -83,13 +72,47 @@ public class GameScreen extends ScreenAdapter {
 
         this.world.eatPills();
 
+        checkGameState();
+
+    }
+
+    public void renderTexte() {
+        police.draw(this.spriteBatch, "Score : " + this.gameState.getScore(), this.rollingBall.getWidth() - 250, this.rollingBall.getHeight() - 10);
+        police.draw(this.spriteBatch, "" + this.gameState.getTempsRestant(), (this.rollingBall.getWidth() / 2) - 150, this.rollingBall.getHeight() - 10);
+
+        if (this.gameState.isWon()) {
+            //police.draw(this.spriteBatch, "VICTOIRE", (this.rollingBall.getWidth() / 2) - 150, this.rollingBall.getHeight() / 2);
+            this.spriteBatch.draw(TextureFactory.getInstance().getGagne(), 0, 0);
+            police.draw(this.spriteBatch, "Pastilles avalées : " + this.gameState.getNbPillNormale(), (this.rollingBall.getWidth() / 2) - 150, (this.rollingBall.getHeight() / 2) - 60);
+        }
+
+        if (this.gameState.isLost()) {
+            //police.draw(this.spriteBatch, "Perdu...", (this.rollingBall.getWidth() / 2) - 150, this.rollingBall.getHeight() / 2);
+            this.spriteBatch.draw(TextureFactory.getInstance().getPerdu(), 0, 0);
+        }
+    }
+
+    public void checkGameState() {
+
+        checkBallIsOut();
+
+        checkTempsRestant();
+
+        checkIsWon();
+
+        checkIsLost();
+    }
+
+    public void checkBallIsOut(){
         if (this.world.getBoule().isOut()) {
             if (this.gameState.isRunning()) {
                 SoundFactory.getInstance().playVictoire(1);
             }
             this.gameState.setVictory();
         }
+    }
 
+    public void checkTempsRestant(){
         if (this.gameState.getTempsRestant() <= 0) {
             if (this.gameState.isRunning()) {
                 SoundFactory.getInstance().playPerte(1);
@@ -100,35 +123,34 @@ public class GameScreen extends ScreenAdapter {
         if (this.gameState.isRunning()) {
             this.gameState.decreaseTemps(Gdx.graphics.getDeltaTime());
         }
+    }
 
+    public void checkIsWon(){
         if (this.gameState.isWon()) {
             this.chrono += Gdx.graphics.getDeltaTime();
 
-            if (this.chrono >= 2) {
-                this.gameState.resetGameState();
-                changeLaby();
+            if (this.chrono >= 3) {
+                this.gameState.newLevel();
+                changeLaby(this.world.getLabyCourant() + 1);
+                this.chrono = 0;
             }
         }
-
-
     }
 
-    public void renderTexte() {
-        this.police.draw(this.spriteBatch, "Score : " + this.gameState.getScore(), this.rollingBall.getWidth() - 250, this.rollingBall.getHeight() - 10);
-        this.police.draw(this.spriteBatch, "" + this.gameState.getTempsRestant(), (this.rollingBall.getWidth() / 2) - 150, this.rollingBall.getHeight() - 10);
-
-        if (this.gameState.isWon()) {
-            this.police.draw(this.spriteBatch, "VICTOIRE", (this.rollingBall.getWidth() / 2) - 150, this.rollingBall.getHeight() / 2);
-            this.police.draw(this.spriteBatch, "Pastilles avalées : " + this.gameState.getNbPillNormale(), (this.rollingBall.getWidth() / 2) - 150, (this.rollingBall.getHeight() / 2) - 60);
-        }
-
+    public void checkIsLost(){
         if (this.gameState.isLost()) {
-            this.police.draw(this.spriteBatch, "Perdu...", (this.rollingBall.getWidth() / 2) - 150, this.rollingBall.getHeight() / 2);
+            this.chrono += Gdx.graphics.getDeltaTime();
+
+            if (this.chrono >= 3) {
+                this.gameState.resetGameState();
+                changeLaby(0);
+                this.chrono = 0;
+            }
         }
     }
 
-    public void changeLaby() {
-        World newLevel = new World(this, this.world.getLabyCourant() + 1);
+    public void changeLaby(int index) {
+        World newLevel = new World(this, index);
         this.world = newLevel;
     }
 

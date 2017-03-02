@@ -2,6 +2,7 @@ package fr.ul.rollingball.models.pills;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
 import fr.ul.rollingball.models.GameElement;
 import fr.ul.rollingball.models.World;
 

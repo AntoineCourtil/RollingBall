@@ -36,9 +36,16 @@ public class GameState {
         this.nbPillNormale++;
     }
 
-    public void resetGameState() {
+    public void newLevel() {
         this.tempsRestant = temps + this.nbPillNormale;
         this.nbPillNormale = 0;
+        this.etat = State.Running;
+    }
+
+    public void resetGameState() {
+        this.score = 0;
+        this.nbPillNormale = 0;
+        this.tempsRestant = temps;
         this.etat = State.Running;
     }
 

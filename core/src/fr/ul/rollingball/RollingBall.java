@@ -24,7 +24,7 @@ public class RollingBall extends Game {
         this.setScreen(this.splashScreen);
     }
 
-    public void displayGame(){
+    public void displayGame() {
         this.setScreen(this.gameScreen);
 
         SoundFactory.getInstance();
@@ -37,11 +37,11 @@ public class RollingBall extends Game {
         this.gameScreen.dispose();
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.width;
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return this.height;
     }
 }
